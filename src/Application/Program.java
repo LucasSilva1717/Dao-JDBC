@@ -1,14 +1,10 @@
 package Application;
 
-import java.text.SimpleDateFormat;
 import java.sql.Date;
-
 import model.entities.Department;
 import model.entities.Seller;
 
 public class Program {
-
-    private SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
 
     public static void main(String[] args) {
 
