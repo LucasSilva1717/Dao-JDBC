@@ -47,16 +47,8 @@ public class SellerDaoJDBC implements SellerDao {
                     st.setInt(1, id);//setInt() para int, setString() para string, setDate() para date, etc
                     rs = st.executeQuery();//executeQuery() para consultas, executeUpdate() para insert, update e delete
                     if(rs.next()) {
-                        Department dep = new Department();
-                        dep.setId(rs.getInt("DepartmentId"));
-                        dep.setName(rs.getString("DepName"));
-                        Seller obj = new Seller();
-                        obj.setId(rs.getInt("Id"));
-                        obj.setName(rs.getString("Name"));
-                        obj.setEmail(rs.getString("Email"));
-                        obj.setBaseSalary(rs.getDouble("BaseSalary"));
-                        obj.setBirthDate(rs.getDate("Birthdate"));
-                        obj.setDepartment(dep);
+                        Department dep = instantiateDepartment(rs);//instanciar um objeto Department usando os dados do ResultSet
+                        Seller obj = instantiateSeller(rs, dep);//instanciar um objeto Seller usando os dados do ResultSet e o objeto Department criado anteriormente
                         return obj;
                     }
                     return null;
@@ -68,6 +60,24 @@ public class SellerDaoJDBC implements SellerDao {
                     DB.closeStatement(st);
                 }
     }
+    private Department instantiateDepartment(ResultSet rs) throws SQLException {//instanciar um objeto Department usando os dados do ResultSet
+        Department dep = new Department();
+        dep.setId(rs.getInt("DepartmentId"));
+        dep.setName(rs.getString("Name"));
+        return dep;
+    }
+
+    private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {//instanciar um objeto Seller usando os dados do ResultSet e o objeto Department criado anteriormente
+        Seller obj = new Seller();
+        obj.setId(rs.getInt("Id"));
+        obj.setName(rs.getString("Name"));
+        obj.setEmail(rs.getString("Email"));
+        obj.setBaseSalary(rs.getDouble("BaseSalary"));
+        obj.setBirthDate(rs.getDate("Birthdate"));
+        obj.setDepartment(dep);
+        return obj;
+    }
+
     @Override
     public List<Seller> findAll() {//List é uma interface que representa uma coleção de elementos, e List.of() é um método estático que retorna uma lista imutável contendo os elementos fornecidos como argumentos. No caso, List.of() sem argumentos retorna uma lista vazia.
 

@@ -11,6 +11,13 @@ public class Program {
         SellerDaoJDBC sellerDao = DaoFactory.createSellerDao();
 
         Seller seller = sellerDao.findById(3);
+        
+        if (seller != null) {
+            System.out.println("Seller found: " + seller.getName());
+        } else {
+            System.out.println("Seller not found");
+        }
+        
         System.out.println(seller);
         
 
