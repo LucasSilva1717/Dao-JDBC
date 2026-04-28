@@ -11,24 +11,29 @@ public class Program {
 
     public static void main(String[] args) throws SQLException {
 
-        SellerDaoJDBC sellerDao = DaoFactory.createSellerDao();
+        SellerDaoJDBC sellerDao = DaoFactory.createSellerDao();//instanciação do SellerDaoJDBC usando a fábrica de DAOs
 
         System.out.println("=====FyndById=====");
-
         Seller seller = sellerDao.findById(3);
-        
         System.out.println(seller);
 
-        System.out.println("\n=====FyndByDepartment=====");
+        System.out.println("\n=====FyndByDepartment=====");//instanciação de um objeto Department com id 2 e nome null, para ser usado como parâmetro no método findByDepartment
         Department department = new Department(2, null);
         List<Seller> list = sellerDao.findByDepartment(department);
         for (Seller obj : list) {
             System.out.println(obj);
         }
-        System.out.println("\n=====FyndAll=====");
+
+        System.out.println("\n=====FyndAll=====");//chamada do método findAll() para obter uma lista de todos os vendedores e impressão de cada um deles
         list = sellerDao.findAll();
         for (Seller obj : list) {
             System.out.println(obj);
         }
+
+        System.out.println("\n=====Insert=====");//criação de um novo objeto Seller com os dados do novo vendedor e chamada do método insert() para inserir o novo vendedor no banco de dados
+        Seller newSeller = new Seller(null, "Julio", "julio@gmail.com", new java.util.Date(), 4000.0, department);
+        sellerDao.insert(newSeller);
+        System.out.println("Inserted! New id = " + newSeller.getId());//impressão do id do novo vendedor, que foi gerado automaticamente pelo banco de dados e definido no objeto Seller após a inserção
+
     }
 }

@@ -24,8 +24,43 @@ public class SellerDaoJDBC implements SellerDao {
     }
 
     @Override
-    public void insert(Seller obj) {
-    }
+    public void insert(Seller obj) {//método insert() para inserir um novo vendedor no banco de dados, usando um PreparedStatement para executar o comando SQL com os parâmetros do objeto Seller
+        PreparedStatement st = null;
+
+        
+        
+        try {
+            st = conn.prepareStatement(
+                "INSERT INTO seller "
+                + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                + "VALUES "
+                + "(?, ?, ?, ?, ?)",
+                PreparedStatement.RETURN_GENERATED_KEYS);//opção para retornar as chaves geradas automaticamente pelo banco de dados, como o id do novo vendedor);
+                
+                st.setString(1, obj.getName());
+                st.setString(2, obj.getEmail());
+                st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));//conversão de java.util.Date para java.sql.Date, necessária para armazenar a data no banco de dados
+                st.setDouble(4, obj.getBaseSalary());
+                st.setInt(5, obj.getDepartment().getId());
+
+                int rowsAffected = st.executeUpdate();
+                if (rowsAffected > 0) {//verificação se a inserção foi bem-sucedida, verificando o número de linhas afetadas pelo comando SQL
+                    ResultSet rs = st.getGeneratedKeys();//obtenção das chaves geradas automaticamente pelo banco de dados, usando o método getGeneratedKeys() do PreparedStatement
+                    if (rs.next()) {//verificação se há chaves geradas, usando o método next() do ResultSet
+                        int id = rs.getInt(1);//obtenção do id gerado, usando o método getInt() do ResultSet, passando o índice da coluna (1 para a primeira coluna)
+                        obj.setId(id);//definição do id do objeto Seller com o valor gerado pelo banco de dados, usando o método setId() do objeto Seller
+                    }
+                    DB.closeResultSet(rs);
+                } else {
+                    throw new DbException("Unexpected error! No rows affected!");//lançamento de uma exceção personalizada, caso a inserção não tenha afetado nenhuma linha no banco de dados
+                }
+        } catch (SQLException e)  {
+            throw new DbException(e.getMessage());//lançamento de uma exceção personalizada, caso ocorra um erro de SQL durante a execução do comando
+        } finally {
+            DB.closeStatement(st);
+        }
+    }  
+    
 
     @Override
     public void update(Seller obj) {
