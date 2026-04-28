@@ -82,9 +82,37 @@ public class SellerDaoJDBC implements SellerDao {
     }
 
     @Override
-    public List<Seller> findAll() {//List é uma interface que representa uma coleção de elementos, e List.of() é um método estático que retorna uma lista imutável contendo os elementos fornecidos como argumentos. No caso, List.of() sem argumentos retorna uma lista vazia.
+    public List<Seller> findAll() throws SQLException {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                "SELECT seller.*, department.Name as DepName "
+                + "FROM seller INNER JOIN department "
+                + "ON seller.DepartmentId = department.Id "
+                + "ORDER BY Name"
+            );
+            
+            rs = st.executeQuery();
 
-        return List.of();
+            List<Seller> list = new ArrayList<>();
+
+            Map<Integer, Department> map = new HashMap<>();
+
+            while (rs.next()){
+                Department dep = map.get(rs.getInt("DepartmentId"));
+                if (dep == null) {
+                    dep = instantiateDepartment(rs);
+                    map.put(rs.getInt("DepartmentId"), dep);
+                }
+                Seller obj = instantiateSeller(rs, dep);
+                list.add(obj);
+                
+            } return list;
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(st);
+        }
     }
 
     @Override

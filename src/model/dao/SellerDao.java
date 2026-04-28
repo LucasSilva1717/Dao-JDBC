@@ -13,6 +13,6 @@ public interface SellerDao {
     void update(Seller obj);
     void deleteById(Integer id);
     Seller findById(Integer id);
-    List<Seller> findAll();
+    List<Seller> findAll() throws SQLException;
     List<Seller> findByDepartment(Department department) throws SQLException;
 }
