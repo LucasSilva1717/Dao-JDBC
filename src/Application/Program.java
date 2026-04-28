@@ -34,6 +34,12 @@ public class Program {
         Seller newSeller = new Seller(null, "Julio", "julio@gmail.com", new java.util.Date(), 4000.0, department);
         sellerDao.insert(newSeller);
         System.out.println("Inserted! New id = " + newSeller.getId());//impressão do id do novo vendedor, que foi gerado automaticamente pelo banco de dados e definido no objeto Seller após a inserção
-
+        
+        System.out.println("\n=====Update=====");//atualização do nome do vendedor e chamada do método update() para atualizar os dados do vendedor no banco de dados
+        seller = sellerDao.findById(1);
+        seller.setName("Matha Crane");//atualização do nome do vendedor com id 1 para "Matha Crane"
+        seller.setBaseSalary(2000.0);
+        sellerDao.update(seller);
+        System.out.println("Update completed!");
     }
 }

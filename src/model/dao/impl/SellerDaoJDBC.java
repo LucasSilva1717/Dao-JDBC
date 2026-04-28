@@ -27,10 +27,8 @@ public class SellerDaoJDBC implements SellerDao {
     public void insert(Seller obj) {//método insert() para inserir um novo vendedor no banco de dados, usando um PreparedStatement para executar o comando SQL com os parâmetros do objeto Seller
         PreparedStatement st = null;
 
-        
-        
         try {
-            st = conn.prepareStatement(
+            st = conn.prepareStatement(//
                 "INSERT INTO seller "
                 + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
                 + "VALUES "
@@ -64,6 +62,29 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void update(Seller obj) {
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(//
+                "UPDATE seller "
+                + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                + "WHERE Id = ?",       
+                PreparedStatement.RETURN_GENERATED_KEYS);//opção para retornar as chaves geradas automaticamente pelo banco de dados, como o id do novo vendedor);
+                
+                st.setString(1, obj.getName());
+                st.setString(2, obj.getEmail());
+                st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));//conversão de java.util.Date para java.sql.Date, necessária para armazenar a data no banco de dados
+                st.setDouble(4, obj.getBaseSalary());
+                st.setInt(5, obj.getDepartment().getId());
+                st.setInt(6,obj.getId());
+
+                st.executeUpdate();
+                
+            } catch (SQLException e)  {
+            throw new DbException(e.getMessage());//lançamento de uma exceção personalizada, caso ocorra um erro de SQL durante a execução do comando
+            } finally {
+            DB.closeStatement(st);
+            }
     }
 
     @Override
