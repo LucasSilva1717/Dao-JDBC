@@ -2,6 +2,8 @@ package Application;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
+
 import model.dao.DaoFactory;
 import model.dao.impl.SellerDaoJDBC;
 import model.entities.Department;
@@ -10,6 +12,8 @@ import model.entities.Seller;
 public class Program {
 
     public static void main(String[] args) throws SQLException {
+
+        Scanner sc = new Scanner(System.in);
 
         SellerDaoJDBC sellerDao = DaoFactory.createSellerDao();//instanciação do SellerDaoJDBC usando a fábrica de DAOs
 
@@ -41,5 +45,12 @@ public class Program {
         seller.setBaseSalary(2000.0);
         sellerDao.update(seller);
         System.out.println("Update completed!");
+
+        System.out.println("\n=====Delete=====");//chamada do método deleteById() para excluir o vendedor com id 2 do banco de dados]
+        System.out.println("Enter id for delete test: ");
+        int id = sc.nextInt();
+        sellerDao.deleteById(id);
+        System.out.println("Delete completed!");
+        sc.close();
     }
 }
