@@ -39,6 +39,7 @@ public class Program {
         sellerDao.insert(newSeller);
         System.out.println("Inserted! New id = " + newSeller.getId());//impressão do id do novo vendedor, que foi gerado automaticamente pelo banco de dados e definido no objeto Seller após a inserção
         
+
         System.out.println("\n=====Update=====");//atualização do nome do vendedor e chamada do método update() para atualizar os dados do vendedor no banco de dados
         seller = sellerDao.findById(1);
         seller.setName("Matha Crane");//atualização do nome do vendedor com id 1 para "Matha Crane"
@@ -46,6 +47,7 @@ public class Program {
         sellerDao.update(seller);
         System.out.println("Update completed!");
 
+        
         System.out.println("\n=====Delete=====");//chamada do método deleteById() para excluir o vendedor com id 2 do banco de dados]
         System.out.println("Enter id for delete test: ");
         int id = sc.nextInt();
