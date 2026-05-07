@@ -1,18 +1,3 @@
-## Getting Started
+Backend (Java JDBC & Data Access Object): Implementação de uma camada de persistência de dados robusta utilizando o padrão de projeto DAO para desacoplamento entre a lógica de negócio e o acesso ao banco de dados. O foco técnico consistiu na construção manual de uma infraestrutura de CRUD (Create, Read, Update, Delete) com JDBC puro, gerenciando conexões e transações para garantir a integridade dos dados. A arquitetura foi otimizada com o uso de Dependency Injection manual via DaoFactory e tratamento de exceções customizado para encapsular falhas de infraestrutura.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Ferramentas usadas: Java 11+, JDBC, MySQL, SQL, Git/GitHub e VScode IDE.
