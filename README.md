@@ -1,71 +1,97 @@
-# 🏦 Transaction Management - Java & JDBC
+# 🏦 Gerenciamento de Transações - Java e JDBC
 
-This project demonstrates the implementation of a financial transaction management system using **Java SE** and **JDBC**. The primary focus is to ensure data consistency in complex operations by using manual transaction controls.
+Este projeto demonstra a implementação de um sistema de gerenciamento de transações financeiras usando **Java SE** e **JDBC**. O foco principal é garantir a consistência dos dados em operações complexas por meio de controles manuais de transação.
 
-## ✨ Features
+## ✨ Recursos
 
-### 1. Transactional Integrity
-*   Implementation of **ACID properties** (Atomicity, Consistency, Isolation, and Durability).
-*   Manual **commit and rollback** control to ensure transfers are only completed if all steps succeed.
+### 1. Integridade Transacional
+* Implementação das propriedades **ACID** (Atomicidade, Consistência, Isolamento e Durabilidade).
 
-### 2. JDBC Core Implementation
-*   Direct database connection via Driver Manager.
-*   Use of `PreparedStatement` to prevent **SQL Injection** attacks.
-*   Efficient resource management (proper handling of Connection and Statement closures).
+* Controle manual de **commit e rollback** para garantir que as transferências sejam concluídas somente se todas as etapas forem bem-sucedidas.
 
-### 3. Error Handling
-*   SQL exception handling designed to trigger automatic rollbacks in case of failures during a transaction.
-*   Informative logs regarding the operation status.
+### 2. Implementação do JDBC Core
+* Conexão direta com o banco de dados via Driver Manager.
 
-### 4. Database Integration
-*   Utilizes **PostgreSQL** for data persistence.
-*   Table modeling focused on accounts and transaction logging.
+* Uso de `PreparedStatement` para prevenir ataques de **SQL Injection**.
 
----
+* Gerenciamento eficiente de recursos (tratamento adequado de fechamentos de conexão e instruções).
 
-## 🛠 Tech Stack
+### 3. Tratamento de Erros
+* Tratamento de exceções SQL projetado para acionar rollbacks automáticos em caso de falhas durante uma transação.
 
-*   **Java SE**: Core programming language.
-*   **JDBC (Java Database Connectivity)**: API for database interaction.
-*   **PostgreSQL**: Relational database management system.
-*   **Maven**: Dependency management and build tool.
+* Logs informativos sobre o status da operação.
+
+### 4. Integração com Banco de Dados
+* Utiliza **PostgreSQL** para persistência de dados.
+
+* Modelagem de tabelas focada em contas e registro de transações.
 
 ---
 
-## 🚀 How to Run the Project
+## 🛠 Tecnologias Utilizadas
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com
-    ```
+* **Java SE**: Linguagem de programação principal.
 
-2.  **Configure the Database:**
-    Create a database in your PostgreSQL instance and update your connection class (e.g., `DB.java`) with your credentials:
-    - URL: `jdbc:postgresql://localhost:5432/your_database`
-    - User: `your_username`
-    - Password: `your_password`
+* **JDBC (Java Database Connectivity)**: API para interação com o banco de dados.
 
-3.  **Database Schema:**
-    Ensure you have the necessary tables created. Basic example:
-    ```sql
-    CREATE TABLE accounts (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100),
-        balance DECIMAL(10, 2)
-    );
-    ```
+* **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional.
 
-4.  **Run the Application:**
-    Execute the main class through your IDE or via terminal:
-    ```bash
-    mvn compile exec:java -Dexec.mainClass="your.package.name.Main"
-    ```
+* **Maven**: Ferramenta de gerenciamento de dependências e construção de sistemas.
 
 ---
 
-## 🤝 Contributing
+## 🚀 Como executar o projeto
 
-Feel free to fork this project, open issues, or submit pull requests with improvements, such as implementing different transaction isolation levels.
+1. **Clone o repositório:**
+
+``bash
+
+git clone https://github.com
+
+```
+
+2. **Configure o banco de dados:**
+
+Crie um banco de dados em sua instância do PostgreSQL e atualize sua classe de conexão (por exemplo, `DB.java`) com suas credenciais:
+
+- URL: `jdbc:postgresql://localhost:5432/seu_banco_de_dados`
+
+- Usuário: `seu_nome_de_usuário`
+
+- Senha: `sua_senha`
+
+3. **Esquema do banco de dados:**
+
+Certifique-se de ter criado as tabelas necessárias. Exemplo básico:
+
+``sql
+
+CREATE TABLE accounts (
+
+id SERIAL PRIMARY KEY,
+
+name VARCHAR(100),
+
+balance DECIMAL(10, 2)
+
+);
+```
+
+4. **Execute a aplicação:**
+
+Execute a classe principal através da sua IDE ou via terminal:
+
+``bash
+
+mvn compile exec:java -Dexec.mainClass="your.package.name.Main"
+
+```
 
 ---
-Developed by https://github.com/LucasSilva1717
+
+## 🤝 Contribuindo
+
+Sinta-se à vontade para criar um fork deste projeto, abrir issues ou enviar pull requests com melhorias, como a implementação de diferentes níveis de isolamento de transação.
+
+---
+Desenvolvido por https://github.com/LucasSilva1717
